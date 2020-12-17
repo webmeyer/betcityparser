@@ -1,0 +1,6 @@
+pyTelegramBotAPI
+schedule
+PyMySQL
+requests
+BeautifulSoup4
+selenium
