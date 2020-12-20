@@ -10,7 +10,8 @@ from threading import Thread
 from time import sleep
 import os
 bot = telebot.TeleBot(config.TOKEN)
-
+database.DELETE(TOT_MAX=1000)
+database.DELETE(TOT_MAX=2000)
 def ChangeVoll(message):
 	database.UPDATEVOLLEY(TOT_MIN=float(message.text.split('@')[0]), TOT_MAX=float(message.text.split('@')[1]))
 	bot.send_message(message.chat.id, 'Фильтр изменен')
@@ -40,6 +41,9 @@ def lalala(message):
 		volleyballpars(bot, database.vollinfo()['TOT_MAX'], database.vollinfo()['TOT_MIN'])
 	if message.text == 'Баскетбол':
 		basketballpars(bot, database.basketinfo()['TOT_MAX'], database.basketinfo()['TOT_MIN'], database.basketinfo()['F_1'], database.basketinfo()['F_2'])
+	if message.text == 'Очистить базы матчей':
+		database.DELETE(TOT_MAX=1000)
+		database.DELETE(TOT_MAX=2000)
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):

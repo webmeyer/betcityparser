@@ -1,6 +1,6 @@
 
 import pymysql.cursors
-def SELECT(id:int, F_1:float, F_2:float, TOT_MIN: float, TOT_MAX:float):
+def SELECT(id:int, F_1:float, F_2:float, TOT_MIN: float, TOT_MAX:float, match_name:str):
 	connect = pymysql.connect(host='eu-cdbr-west-03.cleardb.net',
                              user='bbf5b4dbf0864d',
                              password='ffd3bdd6',
@@ -9,10 +9,9 @@ def SELECT(id:int, F_1:float, F_2:float, TOT_MIN: float, TOT_MAX:float):
                              cursorclass = pymysql.cursors.DictCursor)
 	with connect.cursor() as cursor:
 		cursor.execute("""show tables""")
-		sql = """insert into valleyball (id, F_1, F_2, TOT_MIN, TOT_MAX) value (%s, %s, %s, %s, %s)"""
-		val = (id, F_1, F_2, TOT_MIN, TOT_MAX)
+		sql = """insert into valleyball (id, F_1, F_2, TOT_MIN, TOT_MAX, match_name) value (%s, %s, %s, %s, %s, %s)"""
+		val = (id, F_1, F_2, TOT_MIN, TOT_MAX, match_name)
 		cursor.execute(sql, val)
-
 	connect.commit()
 	connect.close()
 def UPDATEVOLLEY(TOT_MIN: float, TOT_MAX:float):
@@ -69,4 +68,33 @@ def basketinfo():
 		sql = """SELECT F_1, F_2, TOT_MIN, TOT_MAX FROM valleyball WHERE id='2'"""
 		cursor.execute(sql)
 		return(cursor.fetchone())
+	connect.close()
+def takeallmatchs(TOT_MAX:float):
+	connect = pymysql.connect(host='eu-cdbr-west-03.cleardb.net',
+                             user='bbf5b4dbf0864d',
+                             password='ffd3bdd6',
+                             db = 'heroku_d6ef91a5f99ed5e',
+                             charset = 'utf8mb4',
+                             cursorclass = pymysql.cursors.DictCursor)
+	with connect.cursor() as cursor:
+		cursor.execute("""show tables""")
+		sql = """SELECT match_name FROM valleyball WHERE TOT_MAX=%s"""
+		val = TOT_MAX
+		cursor.execute(sql, val)
+		return(cursor.fetchall())
+	connect.close()
+
+def DELETE(TOT_MAX:float):
+	connect = pymysql.connect(host='eu-cdbr-west-03.cleardb.net',
+                             user='bbf5b4dbf0864d',
+                             password='ffd3bdd6',
+                             db = 'heroku_d6ef91a5f99ed5e',
+                             charset = 'utf8mb4',
+                             cursorclass = pymysql.cursors.DictCursor)
+	with connect.cursor() as cursor:
+		cursor.execute("""show tables""")
+		sql = """DELETE FROM valleyball WHERE TOT_MAX='%s'"""
+		val = TOT_MAX
+		cursor.execute(sql, val)
+		connect.commit()
 	connect.close()
