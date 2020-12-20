@@ -13,10 +13,12 @@ bot = telebot.TeleBot(config.TOKEN)
 database.DELETE(TOT_MAX=1000)
 database.DELETE(TOT_MAX=2000)
 def ChangeVoll(message):
+	database.DELETE(TOT_MAX=1000)
 	database.UPDATEVOLLEY(TOT_MIN=float(message.text.split('@')[0]), TOT_MAX=float(message.text.split('@')[1]))
 	bot.send_message(message.chat.id, 'Фильтр изменен')
 
 def ChangeBasket(message):
+	database.DELETE(TOT_MAX=2000)
 	database.UPDATEBASKET(F_1=float(message.text.split('@')[0]),F_2=float(message.text.split('@')[1]),TOT_MIN=float(message.text.split('@')[2]), TOT_MAX=float(message.text.split('@')[3]))
 	bot.send_message(message.chat.id, 'Фильтр изменен')
 
