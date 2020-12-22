@@ -52,14 +52,14 @@ def callback_inline(call):
 	if call.message:
         	if call.data == 'changevolleyball':
         		message = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                                      text='Введите новый значения вида(totalmin@totalmax)', reply_markup=None)
+                                      text='Введите новые значения вида(totalmin@totalmax)', reply_markup=None)
         		try:
         			bot.register_next_step_handler(message, ChangeVoll)
         		except:
         			bot.send_message(call.message.chat.id, 'Ошибка, попробуйте снова')
         	if call.data == 'changebasketball':
         		message = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                                      text='Введите новый значения вида(Ф1@Ф2@ТОТмин@ТОТмакс)', reply_markup=None)
+                                      text='Введите новые значения вида(Ф1@Ф2@ТОТмин@ТОТмакс)', reply_markup=None)
         		try:
         			bot.register_next_step_handler(message, ChangeBasket)
         		except:
