@@ -82,5 +82,5 @@ def basketballpars(bot,TOTAL_MAX, TOTAL_MIN, F_1, F_2):
 							print(e)
 			except Exception as  e:
 					print(e)
-	bot.send_message('@basketballbottest', 'Парсинг завершен')
+	# bot.send_message('@basketballbottest', 'Парсинг завершен')
 	driver.quit()

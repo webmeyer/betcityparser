@@ -74,5 +74,5 @@ def volleyballpars(bot, TOTAL_MAX, TOTAL_MIN):
 							print(e)
 			except Exception as  e:
 					print(e)
-	bot.send_message('@volleybalbottest', 'Парсинг завершен')
+	# bot.send_message('@volleybalbottest', 'Парсинг завершен')
 	driver.quit()
