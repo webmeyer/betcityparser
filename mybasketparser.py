@@ -4,6 +4,7 @@ from selenium import webdriver
 from time import sleep
 import os
 import database
+import re
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
@@ -34,10 +35,12 @@ def basketballpars(bot,TOTAL_MAX, TOTAL_MIN, F_1, F_2):
 					teams = team1+'--vs--'+team2
 					game_score = match.find('span', class_='line-event__score-total').text
 					game_f1 = match.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')[0].text
+					game_f1 = re.sub(r"[^0-9.]+", r"", game_f1) # убираем + и - из строки Ф1
 					game_f2 = match.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')[1].text
+					game_f2 = re.sub(r"[^0-9.]+", r"", game_f2) # убираем + и - из строки Ф2
 					game_total = match.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')[2].text
 					status = 'not find'
-					if TOTAL_MAX>float(game_total) and float(game_total)>TOTAL_MIN and float(game_f1)>F_1 and float(game_f2)<F_2:
+					if TOTAL_MAX>float(game_total) and float(game_total)>TOTAL_MIN and float(game_f1)>F_1 and float(game_f2)>F_2:
 						try:
 							last_matches = database.takeallmatchs(TOT_MAX=2000)
 							for last_matche in last_matches:
@@ -58,11 +61,13 @@ def basketballpars(bot,TOTAL_MAX, TOTAL_MIN, F_1, F_2):
 				team2 = last_match.findAll('div', class_='line-event__name-text bold-nowrap-text')[1].text
 				teams = team1+'--vs--'+team2
 				game_f1 = last_match.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')[0].text
+				game_f1 = re.sub(r"[^0-9.]+", r"", game_f1)  # убираем + и - из строки Ф1
 				game_f2 = last_match.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')[1].text
+				game_f2 = re.sub(r"[^0-9.]+", r"", game_f2)  # убираем + и - из строки Ф2
 				game_score = last_match.find('span', class_='line-event__score-total').text
 				game_total = last_match.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')[2].text
 				status = 'not find'
-				if TOTAL_MAX>float(game_total) and float(game_total)>TOTAL_MIN and float(game_f1)>F_1 and float(game_f2)<F_2:
+				if TOTAL_MAX>float(game_total) and float(game_total)>TOTAL_MIN and float(game_f1)>F_1 and float(game_f2)>F_2:
 					try:
 							last_matches = database.takeallmatchs(TOT_MAX=2000)
 							for last_matche in last_matches:
