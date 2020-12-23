@@ -1,3 +1,5 @@
+# Настройка кнопока для интерфейса бота
+
 from telebot import types
 
 def startmarkup(bot, messagge):

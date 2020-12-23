@@ -1,3 +1,4 @@
+# База данных для размещения результатов парсинга и дальнейшего сравнения
 
 import pymysql.cursors
 def SELECT(id:int, F_1:float, F_2:float, TOT_MIN: float, TOT_MAX:float, match_name:str):

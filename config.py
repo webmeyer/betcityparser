@@ -1,1 +1,4 @@
-TOKEN = '1439370722:AAHCGaper5DEZVbFENWkFRUhHK4Qfnons50'
+# Токен бота. Для смены бота нужно создать нового через @BotFather и полученный токен вставить здесь
+# Для смены каналов уведомлений, необходимо в файлах mybasketparser.py и myvolleyparser.py найти названия каналов (начинаются с @) и сменить на свои
+
+TOKEN = '1329375953:AAEDhcxilTrEpITyYq6dg16pYCMipnB2QWs'

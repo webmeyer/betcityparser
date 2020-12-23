@@ -22,6 +22,8 @@ def volleyballpars(bot, TOTAL_MAX, TOTAL_MIN):
 	soup = BeautifulSoup(driver.page_source, 'html.parser')
 	items = soup.findAll('div', class_='line__champ')
 	il = 3
+
+	# Поиск всех матчей на странице
 	for item in items:
 		if item.text.split('.')[0] == 'Волейбол' and item.text.split('.')[3]!=' Статистика':
 			game_tittle = item.find('a', class_='line-champ__header-link').find('span').text
@@ -29,6 +31,7 @@ def volleyballpars(bot, TOTAL_MAX, TOTAL_MIN):
 
 			scores = item.findAll('span', class_='line-event__score-total')
 			totals = item.findAll('span', class_='line-event__main-bets-button line-event__main-bets-button_left line-event__main-bets-button_no-value')
+
 			for match in matches:
 				try:
 					team1 = match.findAll('div', class_='line-event__name-text bold-nowrap-text')[0].text
@@ -52,6 +55,8 @@ def volleyballpars(bot, TOTAL_MAX, TOTAL_MIN):
 							print(e)
 				except Exception as  e:
 					print(e)
+
+			# Проверка на уникальность. Если матч получает флаг = 'not find', то отправляет уведомление в телегу (если по фильтрам ок)
 			try:
 				last_match = item.find('div', class_='line-event line-event_more line-event_last')
 				team1 = last_match.findAll('div', class_='line-event__name-text bold-nowrap-text')[0].text
@@ -67,12 +72,12 @@ def volleyballpars(bot, TOTAL_MAX, TOTAL_MIN):
 									status = 'find'
 								il+=1
 							if status == 'not find':
-								bot.send_message('@volleybalbottest', '*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total), parse_mode='Markdown')
+								bot.send_message('@vollyeparse', '*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total), parse_mode='Markdown')
 								#print('*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total))
 								database.SELECT(id=il, F_1=0, F_2=0, TOT_MIN=0, TOT_MAX=1000, match_name=teams)
 					except Exception as e:
 							print(e)
 			except Exception as  e:
 					print(e)
-	# bot.send_message('@volleybalbottest', 'Парсинг завершен')
+	# bot.send_message('@volleybalbottest', 'Парсинг завершен')   # Для теста
 	driver.quit()
