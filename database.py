@@ -99,3 +99,18 @@ def DELETE(TOT_MAX:float):
 		cursor.execute(sql, val)
 		connect.commit()
 	connect.close()
+
+def UPDATEMATCH(match_name:str, id:int):
+	connect = pymysql.connect(host='eu-cdbr-west-03.cleardb.net',
+                             user='bbf5b4dbf0864d',
+                             password='ffd3bdd6',
+                             db = 'heroku_d6ef91a5f99ed5e',
+                             charset = 'utf8mb4',
+                             cursorclass = pymysql.cursors.DictCursor)
+	with connect.cursor() as cursor:
+		cursor.execute("""show tables""")
+		sql = """UPDATE valleyball SET match_name=%s WHERE id='%s'"""
+		val = (match_name, id)
+		cursor.execute(sql, val)
+		connect.commit()
+	connect.close()

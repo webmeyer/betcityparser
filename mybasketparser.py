@@ -56,7 +56,10 @@ def basketballpars(bot,TOTAL_MAX, TOTAL_MIN, F_1, F_2):
 							if status == 'not find':
 								bot.send_message('@basketparse', '*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*:'+str(game_total)+'\n*Ф1*: '+game_f1+'\n*Ф2*: '+game_f2,parse_mode='Markdown')
 								#print('*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total))
-								database.SELECT(id=il, F_1=0, F_2=0, TOT_MIN=0, TOT_MAX=2000, match_name=teams)
+								try:
+									database.SELECT(id=il, F_1=0, F_2=0, TOT_MIN=0, TOT_MAX=1000, match_name=teams)
+								except:
+									database.UPDATEMATCH(match_name=teams, id=il)
 						except Exception as e:
 							print(e)
 				except Exception as  e:
@@ -83,7 +86,10 @@ def basketballpars(bot,TOTAL_MAX, TOTAL_MIN, F_1, F_2):
 							if status == 'not find':
 								bot.send_message('@basketparse', '*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*:'+str(game_total)+'\n*Ф1*: '+game_f1+'\n*Ф2*: '+game_f2,parse_mode='Markdown')
 								#print('*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total))
-								database.SELECT(id=il, F_1=0, F_2=0, TOT_MIN=0, TOT_MAX=2000, match_name=teams)
+								try:
+									database.SELECT(id=il, F_1=0, F_2=0, TOT_MIN=0, TOT_MAX=1000, match_name=teams)
+								except:
+									database.UPDATEMATCH(match_name=teams, id=il)
 					except Exception as e:
 							print(e)
 			except Exception as  e:
