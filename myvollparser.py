@@ -48,7 +48,7 @@ def volleyballpars(bot, TOTAL_MAX, TOTAL_MIN):
 									status = 'find'
 								il+=1
 							if status == 'not find':
-								bot.send_message('@volleybalbottest', '*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total), parse_mode='Markdown')
+								bot.send_message('@vollyeparse', '*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total), parse_mode='Markdown')
 								#print('*Стартовый тотал*\n*Событие*: '+str(game_tittle)+'\n*Команды*: '+team1+'--vs--'+team2+'\n*Счет*: '+str(game_score)+'\n*TOTAL*: '+str(game_total))
 								database.SELECT(id=il, F_1=0, F_2=0, TOT_MIN=0, TOT_MAX=1000, match_name=teams)
 						except Exception as e:
